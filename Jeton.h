@@ -19,7 +19,7 @@ typedef union
     float reel;
     typefonction fonction;
     typeoperateur operateur;
-    typeerreur erreur;
+    int erreur;
 }typevaleur;
 
 //énumération des diff types de jetons existants
