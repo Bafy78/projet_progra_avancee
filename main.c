@@ -1,5 +1,6 @@
 #include <stdio.h>
 
-void main(){
+int main(){
     printf("J'adore les pâtes");
+    return 0;
 }
