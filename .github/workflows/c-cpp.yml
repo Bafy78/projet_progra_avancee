@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  setup_compiler:
+  compile_and_test:
 
     runs-on: windows-latest
 
@@ -19,3 +19,15 @@ jobs:
         platform: x64
     - name: check gcc version
       run: gcc --version
+    - name: compile analyseur_lexical.c
+      run: gcc ./analyseur_lexical.c -o analyseur_lexicale.exe   
+    - name: compile analyseur_syntaxique.c
+      run: gcc ./analyseur_syntaxique.c -o analyseur_syntaxique.exe
+    - name: compile evaluateur.c
+      run: gcc ./evaluateur.c -o evaluateur.exe
+    - name: compile afficheur.c
+      run: gcc ./afficheur.c -o afficheur.exe
+    - name: compile main.c
+      run: gcc ./main.c -o main.exe
+    - name: run main.c
+      run: ./main.exe
