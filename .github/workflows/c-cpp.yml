@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  compile:
+  setup compiler:
 
     runs-on: windows-latest
 
@@ -17,5 +17,5 @@ jobs:
       uses: egor-tensin/setup-mingw@v2
       with:
         platform: x64
-    - name: compile code
-      run: gcc main.c
+    - name: check gcc version
+      run: gcc --version
