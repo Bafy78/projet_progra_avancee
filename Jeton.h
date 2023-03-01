@@ -1,8 +1,8 @@
-#define length_Tab=100
+#define length_Tab 100
 
 //énumération des différents types de lexems existants
 typedef enum{
-    REEL, OPERATEUR, FONCTION, ERREUR, FIN, PAR_OUV, PAR_FERM, VARIABLE, BAR_OUV, BAR_FERM, ABSOLU
+    REEL, OPERATEUR, FONCTION, ERREUR, FIN, PAR_OUV, PAR_FERM, VARIABLE, BAR, ABSOLU
 }typelexem;
 
 //énumération des diff types d'opérateurs existants
