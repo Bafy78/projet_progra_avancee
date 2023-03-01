@@ -1,3 +1,6 @@
+#ifndef jeton_h
+#define jeton_h
+
 #define length_Tab 100
 
 //énumération des différents types de lexems existants
@@ -40,3 +43,4 @@ typedef struct Node
 }Node;
 typedef Node *Arbre;
 
+#endif
