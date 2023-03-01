@@ -1,3 +1,5 @@
+#define length_Tab=100
+
 //énumération des différents types de lexems existants
 typedef enum{
     REEL, OPERATEUR, FONCTION, ERREUR, FIN, PAR_OUV, PAR_FERM, VARIABLE, BAR_OUV, BAR_FERM, ABSOLU
@@ -33,8 +35,8 @@ typedef struct
 typedef struct Node
 {
     typejeton jeton;
-    struct Node *pjeton_preced;
-    struct Node *pjeton_suiv;
+    struct Node *fg;
+    struct Node *fd;
 }Node;
 typedef Node *Arbre;
 
