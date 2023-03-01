@@ -1,3 +1,5 @@
+#define length_Tab=100
+
 //énumération des différents types de lexems existants
 typedef enum{
     REEL, OPERATEUR, FONCTION, ERREUR, FIN, PAR_OUV, PAR_FERM, VARIABLE, BAR_OUV, BAR_FERM, ABSOLU
@@ -19,7 +21,7 @@ typedef union
     float reel;
     typefonction fonction;
     typeoperateur operateur;
-    int erreur;
+    char erreur;
 }typevaleur;
 
 //énumération des diff types de jetons existants
@@ -33,8 +35,8 @@ typedef struct
 typedef struct Node
 {
     typejeton jeton;
-    struct Node *pjeton_preced;
-    struct Node *pjeton_suiv;
+    struct Node *fg;
+    struct Node *fd;
 }Node;
 typedef Node *Arbre;
 
