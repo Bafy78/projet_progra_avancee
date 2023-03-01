@@ -2,7 +2,7 @@
 
 //énumération des différents types de lexems existants
 typedef enum{
-    REEL, OPERATEUR, FONCTION, ERREUR, FIN, PAR_OUV, PAR_FERM, VARIABLE, BAR, ABSOLU
+    REEL, OPERATEUR, FONCTION, ERREUR, FIN, PAR_OUV, PAR_FERM, VARIABLE, BAR
 }typelexem;
 
 //énumération des diff types d'opérateurs existants
