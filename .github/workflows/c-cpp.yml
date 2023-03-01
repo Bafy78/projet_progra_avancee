@@ -18,4 +18,4 @@ jobs:
       with:
         platform: x64
     - name: compile code
-      run: gcc 
+      run: gcc main.c
