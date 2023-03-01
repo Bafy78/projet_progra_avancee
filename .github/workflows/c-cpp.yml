@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  setup compiler:
+  setup_compiler:
 
     runs-on: windows-latest
 
