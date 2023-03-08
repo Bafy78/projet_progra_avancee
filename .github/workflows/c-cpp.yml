@@ -20,22 +20,22 @@ jobs:
     - name: check gcc version
       run: gcc --version
     - name: compile analyseur_lexical
-      run: gcc -wall ./main_test_analyseur_lexical.c ./analyseur_lexical.c -o test_analyseur_lexicale.exe
+      run: gcc -Wall ./main_test_analyseur_lexical.c ./analyseur_lexical.c -o test_analyseur_lexicale.exe
     - name: test analyseur_lexical
       run: ./test_analyseur_lexicale.exe
     - name: compile analyseur_syntaxique
-      run: gcc -wall ./main_test_analyseur_syntaxique.c ./analyseur_syntaxique.c -o test_analyseur_syntaxique.exe
+      run: gcc -Wall ./main_test_analyseur_syntaxique.c ./analyseur_syntaxique.c -o test_analyseur_syntaxique.exe
     - name: test analyseur_syntaxique
       run: ./test_analyseur_syntaxique.exe
     - name: compile evaluateur
-      run: gcc -wall ./main_test_evaluateur.c ./evaluateur.c -o test_evaluateur.exe
+      run: gcc -Wall ./main_test_evaluateur.c ./evaluateur.c -o test_evaluateur.exe
     - name: test evaluateur
       run: ./test_evaluateur.exe
     - name: compile afficheur
-      run: gcc -wall ./main_test_afficheur.c ./afficheur.c -o test_afficheur.exe
+      run: gcc -Wall ./main_test_afficheur.c ./afficheur.c -o test_afficheur.exe
     - name: test afficheur
       run: ./test_afficheur.exe
     - name: compile main.c
-      run: gcc -wall ./main.c -o main.exe
+      run: gcc -Wall ./main.c -o main.exe
     - name: run main.c
       run: ./main.exe
