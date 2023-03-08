@@ -32,7 +32,7 @@ jobs:
     - name: test evaluateur
       run: ./test_evaluateur.exe
     - name: compile afficheur
-      run: gcc ./main_test_afficheur ./afficheur.c -o test_afficheur.exe
+      run: gcc ./main_test_afficheur.c ./afficheur.c -o test_afficheur.exe
     - name: test afficheur
       run: ./test_afficheur.exe
     - name: compile main.c
