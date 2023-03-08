@@ -1,5 +1,5 @@
 #include "analyseur_syntaxique.h"
 
-int fonction2(){
-    return 0;
+int main(){
+    return fonction2();
 }
