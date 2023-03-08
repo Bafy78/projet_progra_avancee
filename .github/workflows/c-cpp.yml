@@ -19,14 +19,22 @@ jobs:
         platform: x64
     - name: check gcc version
       run: gcc --version
-    - name: compile analyseur_lexical.c
-      run: gcc ./analyseur_lexical.c -o analyseur_lexicale.exe   
-    - name: compile analyseur_syntaxique.c
-      run: gcc ./analyseur_syntaxique.c -o analyseur_syntaxique.exe
-    - name: compile evaluateur.c
-      run: gcc ./evaluateur.c -o evaluateur.exe
-    - name: compile afficheur.c
-      run: gcc ./afficheur.c -o afficheur.exe
+    - name: compile analyseur_lexical
+      run: gcc ./main_test_analyseur_lexical.c ./analyseur_lexical.c -o test_analyseur_lexicale.exe
+    - name: test analyseur_lexical
+      run: ./test_analyseur_lexicale.exe
+    - name: compile analyseur_syntaxique
+      run: gcc ./main_test_analyseur_syntaxique.c ./analyseur_syntaxique.c -o test_analyseur_syntaxique.exe
+    - name: test analyseur_syntaxique
+      run: ./test_analyseur_syntaxique.exe
+    - name: compile evaluateur
+      run: gcc ./main_test_evaluateur.c ./evaluateur.c -o test_evaluateur.exe
+    - name: test evaluateur
+      run: ./test_evaluateur.exe
+    - name: compile afficheur
+      run: gcc ./main_test_afficheur ./afficheur.c -o test_afficheur.exe
+    - name: test afficheur
+      run: ./test_afficheur.exe
     - name: compile main.c
       run: gcc ./main.c -o main.exe
     - name: run main.c
