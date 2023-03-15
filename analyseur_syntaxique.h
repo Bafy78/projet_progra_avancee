@@ -4,7 +4,6 @@
 #include "jeton.h"
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 Arbre analyse_syntaxique( typejeton Tab[],int* erreur_pg);
 
