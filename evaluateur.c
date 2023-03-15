@@ -32,9 +32,13 @@ float Eval( Arbre A,float x,int *erreur_pg){
 						return(Eval(A->fg,x,erreur_pg)*Eval(A->fd,x,erreur_pg));
 						break;
 					case DIV:
-						if (Eval(A->fd,x,erreur_pg)==0.0){
+						if (Eval(A->fd,x,erreur_pg)==0.0 && Eval(A->fd,x+1,erreur_pg)==0.0){
 							*erreur_pg=300;//division par 0
 							return 0.0;
+						if (Eval(A->fd,x,erreur_pg)==0.0){
+							return 10000000000000000000;
+						}
+							
 						}
 						return(Eval(A->fg,x,erreur_pg)/Eval(A->fd,x,erreur_pg));
 						break;
@@ -53,6 +57,9 @@ float Eval( Arbre A,float x,int *erreur_pg){
 						return (abs(Eval(A->fd,x,erreur_pg)));
 						break;
 					case SQRT:
+						if (Eval(A->fd,x,erreur_pg)<0){
+							*erreur_pg=303;// racine d'une valeur negative
+							return 0.0;
 						return (sqrt(Eval(A->fd,x,erreur_pg)));
 						break;
 					case LOG:
