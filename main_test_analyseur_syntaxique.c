@@ -494,7 +494,7 @@ int main(){
         return -1;
     }
     //test d'erreurs
-    printf("recupération des erreur prg 3\n");
+    printf("recupération des erreur prg\n");
     if(*erreur_pg!=000){
         printf("%d",*erreur_pg);
         return -1;
