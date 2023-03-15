@@ -168,7 +168,6 @@ Arbre generation_arbre2(){
     typejeton jetonabs;
     jetonabs.lexem=FONCTION;
     jetonabs.valeur.fonction=ABS;
-    printf("%d",jetonabs.lexem);
 
     typejeton jetoncinq;
     jetoncinq.lexem=REEL;
@@ -224,7 +223,7 @@ void generation_tab3(typejeton T[]){
     T[i].valeur.fonction=VAL_NEG;
     i++;
     T[i].lexem=REEL;
-    T[i].valeur.reel=3;
+    T[i].valeur.reel=2;
     i++;
     T[i].lexem=OPERATEUR;
     T[i].valeur.operateur=FOIS;
@@ -267,7 +266,6 @@ void generation_tab3(typejeton T[]){
 }
 
 Arbre generation_arbre3(){
-    printf("f° generation tab3\n");
     typejeton jetonplus;
     jetonplus.lexem=OPERATEUR;
     jetonplus.valeur.operateur=PLUS;
@@ -349,7 +347,7 @@ int test_arbre(Arbre A, Arbre B){
         {
         case FONCTION:
             printf("\033[1;33m");
-            printf("test fonction detectée\n");
+            printf("test fonction detectée,valA %d=valB %d ?\n",A->jeton.valeur.fonction,B->jeton.valeur.fonction);
             printf("\033[1;0m");
             if ((A->jeton.valeur.fonction)==(B->jeton.valeur.fonction)){
                 tmp=1;
@@ -359,7 +357,7 @@ int test_arbre(Arbre A, Arbre B){
             break;
         case OPERATEUR:
             printf("\033[1;33m");
-            printf("test operateur detectée\n");
+            printf("test operateur detectée,valA %d=valB %d ?\n",A->jeton.valeur.operateur,B->jeton.valeur.operateur);
             printf("\033[1;0m");
             if ((A->jeton.valeur.operateur)==(B->jeton.valeur.operateur)){
                 tmp=1;
@@ -375,7 +373,7 @@ int test_arbre(Arbre A, Arbre B){
             break;
         case REEL:
             printf("\033[1;33m");
-            printf("test reel detectée\n");
+            printf("test reel detectée,valA %f=valB %f ?\n",A->jeton.valeur.reel,B->jeton.valeur.reel);
             printf("\033[1;0m");
             if ((A->jeton.valeur.reel)==(B->jeton.valeur.reel)){
                 tmp=1;
@@ -415,18 +413,18 @@ int main(){
     int *erreur_pg;
     int erreur=0;
     erreur_pg=&erreur;
-    //generation du tableau
+    //generation du tableau1
     printf("generation du tableau 1\n");
     typejeton T[length_Tab];
-    generation_tab2(T);
+    generation_tab1(T);
     printf("generation de l'arbre 1\n");
-    //generation de l'arbre de test
-    Arbre B =generation_arbre2();
-    //passage de la fonction
+    //generation de l'arbre de test1
+    Arbre B =generation_arbre1();
+    //passage de la fonction1
     printf("envoi dans l'analyseur syntaxique 1\n");
     Arbre A;
     A=analyse_syntaxique(T,erreur_pg);
-    //test de l'arbre
+    //test de l'arbre1
     printf("test de l'arbre 1\n");
     int egal =test_arbre(A ,B);
     if(egal!=1){
@@ -435,10 +433,71 @@ int main(){
         printf("\033[1;0m");
         return -1;
     }
-    //test d'erreurs
-    printf("recupération des erreur prg 1\n %d",*erreur_pg);
+    //test d'erreurs1
+    printf("recupération des erreur prg 1\n ");
     if(*erreur_pg!=000){
         printf("%d",*erreur_pg);
         return -1;
     }
+
+    free(A);
+    free(B);
+    A=NULL;
+    B=NULL;
+    erreur=0;
+    //generation du tableau2
+    printf("generation du tableau 2\n");
+    generation_tab2(T);
+    printf("generation de l'arbre 2\n");
+    //generation de l'arbre de test2
+    B =generation_arbre2();
+    //passage de la fonction2
+    printf("envoi dans l'analyseur syntaxique 2\n");
+    A=analyse_syntaxique(T,erreur_pg);
+    //test de l'arbre2
+    printf("test de l'arbre 2\n");
+    egal =test_arbre(A ,B);
+    if(egal!=1){
+        printf("\033[1;31m");
+        printf("Arbre non egaux\n");
+        printf("\033[1;0m");
+        return -1;
+    }
+    //test d'erreurs2
+    printf("recupération des erreur prg 2\n");
+    if(*erreur_pg!=000){
+        printf("%d",*erreur_pg);
+        return -1;
+    }
+
+    free(A);
+    free(B);
+    A=NULL;
+    B=NULL;
+    erreur=0;
+    //generation du tableau3
+    printf("generation du tableau 3\n");
+    generation_tab3(T);
+    printf("generation de l'arbre 3\n");
+    //generation de l'arbre de test
+    B =generation_arbre3();
+    //passage de la fonction
+    printf("envoi dans l'analyseur syntaxique 3\n");
+    A=analyse_syntaxique(T,erreur_pg);
+    //test de l'arbre
+    printf("test de l'arbre 3\n");
+    egal =test_arbre(A ,B);
+    if(egal!=1){
+        printf("\033[1;31m");
+        printf("Arbre non egaux\n");
+        printf("\033[1;0m");
+        return -1;
+    }
+    //test d'erreurs
+    printf("recupération des erreur prg\n");
+    if(*erreur_pg!=000){
+        printf("%d",*erreur_pg);
+        return -1;
+    }
+    return 0;
 }
