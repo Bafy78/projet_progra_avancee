@@ -4,14 +4,17 @@
 #include "jeton.h"
 #include "evaluateur.h"
 
-//retourne l'image de x par la fonction représentée par l'arbre A
-float Eval( Arbre A,int x,int *erreur_pg){
+//la fonction prend en entrée: un arbre A  qui est la fonction,
+//x qui est la valeur numerique de la variable x 
+//*erreur_pg un pointeur qui est l'erreur à retourner si il y en a une
+//la fonction retourne l'image de x par la fonction représentée par l'arbre A
+float Eval( Arbre A,float x,int *erreur_pg){
     //la fonction est récursive, donc on ne continue que si il n'y a pas eu d'erreur à la récursion précédente
 	if (*erreur_pg==0){
         //Pour chaque type de lexem, on effectue l'opération associée, avec les éléments du tableau concernés
 		switch(A->jeton.lexem){
 			case REEL :
-				return((float)(A->jeton.valeur.reel));
+				return((A->jeton.valeur.reel));
 				break;
 			case VARIABLE :
 				return(x);
@@ -53,6 +56,10 @@ float Eval( Arbre A,int x,int *erreur_pg){
 						return (sqrt(Eval(A->fd,x,erreur_pg)));
 						break;
 					case LOG:
+						if (Eval(A->fd,x,erreur_pg)<=0){
+							*erreur_pg=302;// logarithme d'une valeur nulle ou negative
+							return 0.0;
+						}
 						return (log(Eval(A->fd,x,erreur_pg)));
 						break;
 					case COS:
