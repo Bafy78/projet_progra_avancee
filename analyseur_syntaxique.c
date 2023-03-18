@@ -58,7 +58,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 		*erreur_pg=203;//manque barre de valeur absolue
 	}
 	if(*erreur_pg==0){
-		Arbre*A;
+		Arbre A;
 		typevaleur VAL;
 		//operateur PLUS et MOINS
 		/*methode: detection du dernier operateur plus ou moins et recuperation de sa position,
@@ -95,39 +95,6 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			fd=analyse_syntaxique(Tabd, erreur_pg);
 			fg=analyse_syntaxique(Tabg, erreur_pg);
 			A=creer_noeud(Tab[n],fg,fd);
-			return A;
-		}
-		//fonction VAL_NEG
-		/*methode: detection de la première val_neg et recuperation de sa position,
-		en omettant les valeurs entre parenthèses et les valeurs entre barres de valeurs absolues*/
-		n=-1;
-		nb_parenthese=0;
-		nb_barres=0;
-		i=0;
-		while(Tab[i].lexem!=FIN){
-			if(Tab[i].lexem==PAR_OUV){
-				nb_parenthese++;
-			}
-			if(Tab[i].lexem==PAR_FERM){
-				nb_parenthese--;
-			}
-			if(Tab[i].lexem==BAR){
-			        nb_barres++;
-			}
-			if(Tab[i].lexem==FONCTION&&Tab[i].valeur.fonction==VAL_NEG&&nb_parenthese==0&&(nb_barres%2)==0){
-				VAL=Tab[i].valeur;
-				n=i;
-			}
-			i++;
-		}
-		/*methode: copie des partie du tableau à gauche de la fonction Val_Neg.
-		puis traîtement de ces parties
-		creation du noeud*/
-		if (n!=(-1)){
-			Copy_Tab(Tabd,Tab,n+1,length_Tab);
-			Arbre fd;
-			fd=analyse_syntaxique(Tabd, erreur_pg);
-			A=creer_noeud(Tab[n],NULL,fd);
 			return A;
 		}
 
@@ -203,8 +170,41 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			Copy_Tab(Tabd,Tab,n+1,length_Tab);
 			Arbre fd,fg;
 			fd=analyse_syntaxique(Tabd, erreur_pg);
-			fd=analyse_syntaxique(Tabg, erreur_pg);
+			fg=analyse_syntaxique(Tabg, erreur_pg);
 			A=creer_noeud(Tab[n],fg,fd);
+			return A;
+		}
+		//fonction VAL_NEG
+		/*methode: detection de la première val_neg et recuperation de sa position,
+		en omettant les valeurs entre parenthèses et les valeurs entre barres de valeurs absolues*/
+		n=-1;
+		nb_parenthese=0;
+		nb_barres=0;
+		i=0;
+		while(Tab[i].lexem!=FIN){
+			if(Tab[i].lexem==PAR_OUV){
+				nb_parenthese++;
+			}
+			if(Tab[i].lexem==PAR_FERM){
+				nb_parenthese--;
+			}
+			if(Tab[i].lexem==BAR){
+			        nb_barres++;
+			}
+			if(Tab[i].lexem==FONCTION&&Tab[i].valeur.fonction==VAL_NEG&&nb_parenthese==0&&(nb_barres%2)==0){
+				VAL=Tab[i].valeur;
+				n=i;
+			}
+			i++;
+		}
+		/*methode: copie des partie du tableau à gauche de la fonction Val_Neg.
+		puis traîtement de ces parties
+		creation du noeud*/
+		if (n!=(-1)){
+			Copy_Tab(Tabd,Tab,n+1,length_Tab);
+			Arbre fd;
+			fd=analyse_syntaxique(Tabd, erreur_pg);
+			A=creer_noeud(Tab[n],NULL,fd);
 			return A;
 		}
 		//fonctions
