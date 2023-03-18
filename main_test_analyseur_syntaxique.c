@@ -303,12 +303,13 @@ Arbre generation_arbre3(){
 
     Arbre A= creer_noeud(
         jetonplus,
-        creer_noeud(
-            jetonvalneg,NULL,
             creer_noeud(
                 jetonfois,
                 creer_noeud(
-                    jetondeux,NULL,NULL
+                    jetonvalneg,NULL,
+                    creer_noeud(
+                        jetondeux,NULL,NULL
+                    )
                 ),
                 creer_noeud(
                     jetonabs,NULL,
@@ -316,8 +317,7 @@ Arbre generation_arbre3(){
                         jetoncinq,NULL,NULL
                     )
                 )
-            )
-        ),
+            ),
         creer_noeud(
             jetonabs,NULL,
             creer_noeud(
