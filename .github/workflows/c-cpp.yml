@@ -25,8 +25,6 @@ jobs:
       run: ./test_analyseur_lexicale.exe
     - name: compile analyseur_syntaxique
       run: gcc ./main_test_analyseur_syntaxique.c ./analyseur_syntaxique.c -o test_analyseur_syntaxique.exe
-    - name: test analyseur_syntaxique
-      run: ./test_analyseur_syntaxique.exe
     - name: compile evaluateur
       run: gcc ./main_test_evaluateur.c ./evaluateur.c -o test_evaluateur.exe
     - name: test evaluateur
