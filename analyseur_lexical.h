@@ -6,7 +6,6 @@
 #include <string.h>
 #include <ctype.h>
 
-void analyse_lexicale(typejeton tab[], int* erreur_pg, char c[]);
-
+typejeton* analyseur(const char* expression,int *erreur_pg);
 
 #endif
