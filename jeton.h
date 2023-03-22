@@ -1,46 +1,72 @@
 #ifndef jeton_h
 #define jeton_h
 
-#define length_Tab 1000
+#define length_Tab 100
 
-//Ã©numÃ©ration des diffÃ©rents types de lexems existants
-typedef enum{
-    REEL, OPERATEUR, FONCTION, ERREUR, FIN, PAR_OUV, PAR_FERM, VARIABLE, BAR
-}typelexem;
 
-//Ã©numÃ©ration des diff types d'opÃ©rateurs existants
-typedef enum{
-    PLUS, MOINS, FOIS, DIV, PUIS
-}typeoperateur;
+// énumération des différents types de lexems existants
+typedef enum
+{
+    REEL,
+    OPERATEUR,
+    FONCTION,
+    ERREUR,
+    FIN,
+    PAR_OUV,
+    PAR_FERM,
+    VARIABLE,
+    BAR,
+    ABSOLU,
+    NO_TOKEN
+} typelexem;
 
-//Ã©numÃ©ration des diff types de fonctions existantes
-typedef enum{
-    ABS, SIN, SQRT, LOG, COS, TAN, EXP, ENTIER, VAL_NEG, SINC
-}typefonction;
+// énumération des diff types d'opérateurs existants
+typedef enum
+{
+    PLUS,
+    MOINS,
+    FOIS,
+    DIV,
+    PUIS
+} typeoperateur;
 
-//Ã©numÃ©ration des diff types de valeurs existantes
+// énumération des diff types de fonctions existantes
+typedef enum
+{
+    ABS,
+    SIN,
+    SQRT,
+    LOG,
+    COS,
+    TAN,
+    EXP,
+    ENTIER,
+    VAL_NEG,
+    SINC
+} typefonction;
+
+// énumération des diff types de valeurs existantes
 typedef union
 {
     float reel;
     typefonction fonction;
     typeoperateur operateur;
-    char erreur;
-}typevaleur;
+    int erreur;
+} typevaleur;
 
-//Ã©numÃ©ration des diff types de jetons existants
+// énumération des diff types de jetons existants
 typedef struct
 {
     typelexem lexem;
     typevaleur valeur;
-}typejeton;
+} typejeton;
 
-//dÃ©claration de l'arbre
+// déclaration de l'arbre
 typedef struct Node
 {
     typejeton jeton;
-    struct Node *fg;
-    struct Node *fd;
-}Node;
-typedef Node *Arbre;
-
+    struct Node* fg;
+    struct Node* fd;
+} Node;
+typedef Node* Arbre;
 #endif

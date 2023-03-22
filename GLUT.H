@@ -47,7 +47,7 @@
 #  endif
    /* XXX This is from Win32's <ctype.h> */
 #  ifndef _WCHAR_T_DEFINED
-//typedef unsigned short wchar_t;
+typedef unsigned short wchar_t;
 #   define _WCHAR_T_DEFINED
 #  endif
 # endif
