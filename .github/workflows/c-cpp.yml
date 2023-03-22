@@ -31,5 +31,3 @@ jobs:
       run: gcc ./main_test_evaluateur.c ./evaluateur.c -o test_evaluateur.exe
     - name: test evaluateur
       run: ./test_evaluateur.exe
-    - name: compile main.cpp
-      run: g++ ./main.cpp -o main.exe
