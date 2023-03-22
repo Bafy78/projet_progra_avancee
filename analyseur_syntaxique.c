@@ -101,6 +101,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			Arbre fd,fg;
 			fd=analyse_syntaxique(Tabd, erreur_pg);
 			fg=analyse_syntaxique(Tabg, erreur_pg);
+
 			return creer_noeud(Tab[n],fg,fd);
 		}
 
@@ -110,11 +111,13 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			methode: detection du dernier operateur FOIS ou DIV et recuperation de sa position,
 			en omettant les operateurs entre parenthèses et les valeurs entre barres de valeurs absolues
 		*/
+
 		i=0;
 		n=-1;
 		nb_parenthese=0;
 		nb_barres=0;
 		while(Tab[i].lexem!=FIN){
+
 			if(Tab[i].lexem==PAR_OUV){
 				nb_parenthese++;
 			}
@@ -141,7 +144,6 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			Copy_Tab(Tabg,Tab,0,n-1);
 			Copy_Tab(Tabd,Tab,n+1,length_Tab);
 			Arbre fd,fg;
-			fg=analyse_syntaxique(Tabg, erreur_pg);
 			fd=analyse_syntaxique(Tabd, erreur_pg);
 			return creer_noeud(Tab[n],fg,fd);
 		}
@@ -156,6 +158,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 		n=-1;
 		nb_parenthese=0;
 		nb_barres=0;
+		i=0;
 		while(Tab[i].lexem!=FIN){
 			if(Tab[i].lexem==PAR_OUV){
 				nb_parenthese++;
@@ -182,7 +185,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			typejeton Tabg[length_Tab];
 			Copy_Tab(Tabg,Tab,0,n-1);
 			Copy_Tab(Tabd,Tab,n+1,length_Tab);
-			Arbre fd,fg;
+			Arbre fd;
 			fd=analyse_syntaxique(Tabd, erreur_pg);
 			fg=analyse_syntaxique(Tabg, erreur_pg);
 			return creer_noeud(Tab[n],fg,fd);
