@@ -2,6 +2,7 @@
 #include "glut.h"
 #include "graph.h"
 #include <stdio.h>
+#include <math.h>
 
 
 /**
@@ -21,13 +22,13 @@ static float* Ordonnee;
 //Modificateurs de bordures
 static float TranslatX = 0;
 static float TranslatY = 0;
-static float zoom = 1;
+static float zoom      = 1;
 
 //Coordonnees des bordures initiales
 static float a = -9; // Init_Left
-static float b = 9; // Init_Right
+static float b =  9; // Init_Right
 static float c = -5; // Init_Down
-static float d = 5; // Init_Up
+static float d =  5; // Init_Up
 
 //Coordonnees des bordures avec modificateur
 static float A; // Right
@@ -39,7 +40,10 @@ static float D; // Up
 static float t_curs; // taille du curseur
 static float X_curseur;
 static float Y_curseur;
+static int toggle=0; // basculer type curseur 
 
+//Menu 
+static int menu = 0;
 
 //initialisation get (transfert de valeurs contenues dans le graph.cpp vers le main.cpp)
 float get_TranslatX() {
@@ -69,6 +73,10 @@ float get_X0() {
 float get_Y0() {
     return Y_curseur;
 }
+float get_toggle() {
+    return toggle;
+}
+
 
 /*initialisation set(fonctions pacerelles entre graph.cpp et main.cpp
 afin de modifier des variables provenant de graph.cpp dans le main.cpp)*/
@@ -82,7 +90,9 @@ void set_TranslatY(float y) {
 void set_Zoom(float z) {
     zoom = z;
 }
-
+void set_toggle(int t) {
+    toggle = t;
+}
 
 /**
 * GlutReshape
@@ -121,8 +131,7 @@ float abs(float x) {
     if (x < 0) {
         return -x;
     }
-    else {
-        return x;
+    else { return x;
     }
 }
 
@@ -132,38 +141,38 @@ float Calcul_milieu(float Coord1, float Coord2) {
 }
 
 //Calcul des bornes de la fenetre en fonction de la Translation(x,y) et du Zoom
-float Calcul_Coordonnees(float Coord1, float Coord2, float Translat) {
+float Calcul_Coordonnees(float Coord1, float Coord2,float Translat) {
     float a;
     float b;
     float milieu;
-    int signe = 1;
-    a = Coord1 + Translat;
-    b = Coord2 + Translat;
-    milieu = Calcul_milieu(a, b);
+    int signe=1;
+    a = Coord1 + Translat ;
+    b = Coord2 + Translat ; 
+    milieu= Calcul_milieu(a, b);
     if (a < milieu) {
         signe = -1;
     }
-    return milieu + signe * abs(milieu - a) * zoom;
-
+    return milieu + signe*abs(milieu-a)* zoom;
+   
 }
 
-static void Begin2DDisplay() {
+static void Begin2DDisplay(){
     A = Calcul_Coordonnees(a, b, TranslatX);
     B = Calcul_Coordonnees(b, a, TranslatX);
     C = Calcul_Coordonnees(c, d, TranslatY);
     D = Calcul_Coordonnees(d, c, TranslatY);
-
+   
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    glOrtho(A, B, C, D, 0, 1);
-
+    glOrtho(A,B,C,D, 0, 1);
+        
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
     glTranslatef(0.0F, 0.0F, -1.0F);
-
-
+    
+    
 }
 
 static void End2DDisplay(void)
@@ -184,35 +193,59 @@ static void InitDisplay(void)
 }
 
 //Fonction servants au tracer du quadrillage
-void tracer_ligneX(int i, float distanceY) {
+void tracer_ligneX (int i, float distanceY) {
     setcolor(0.7, 0.9, 1);
     if (i == -10000 || i == 10000) {
         setcolor(1.0F, 0.0F, 0.0F);
     }
-    line(i, C, i, D);
-    setcolor(0.0F, 0.0F, 0.0F);
-    line(i, 0 - distanceY / 60, i, 0 + distanceY / 60);
+    line(i, C, i, D); 
+    setcolor(0.0F, 0.0F, 0.0F); 
+    line(i, 0 - distanceY / 60, i, 0 + distanceY / 60); 
 }
-void tracer_ligneY(int j, float distanceX) {
+void tracer_ligneY (int j, float distanceY) {
     setcolor(0.7, 0.9, 1);
     if (j == -10000 || j == 10000) {
         setcolor(1.0F, 0.0F, 0.0F);
     }
     line(A, j, B, j);
     setcolor(0.0F, 0.0F, 0.0F);
-    line(0 - distanceX / 60, j, 0 + distanceX / 60, j);
+    line(0 - distanceY / 60,j , 0 + distanceY / 60,j );
 }
 
-static void GlutDraw(void) {
+//fonction trace le cercle du curseur
+void circle(float x, float y, float radius,float W, int triangleAmount, int n)
+{
+    glLineWidth(W);
+    int i=0;
+    GLfloat twicePi = 2.0 * 3.1415;
+
+    glBegin(GL_TRIANGLE_FAN);
+    setcolor(0.4F, 0.4F, 0.4F);
+
+    twicePi = n * 3.1415;
+
+    glVertex2f(x+radius, y); // center of circle
+   
+    for (i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x+(radius * cos(i * twicePi / triangleAmount)),
+            y+(radius * sin(i * twicePi / triangleAmount))
+        );
+    }
+    glLineWidth(1); 
+}
+
+static void GlutDraw(void){
+    glLineWidth(1); 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Begin2DDisplay();
 
     X_curseur = Calcul_milieu(A, B);
     Y_curseur = Calcul_milieu(C, D);
-
+   
     //Trace du quadrillage + graduations   
     int i = A;
-    int j = C;
+    int j = C;   
     float distanceX;
     float distanceY;
     float y;
@@ -233,45 +266,45 @@ static void GlutDraw(void) {
                     tracer_ligneX(i, distanceY);
                     sprintf(valeur, "%d", i);
                     if (i != 0) {
-                        outtextxy(i - distanceX * 0.03, 0 - distanceY * 0.06, valeur);
+                        outtextxy(i-distanceX*0.03, 0 - distanceY * 0.06, valeur);
                     }
                 }
             }
-            else if (i % 100 == 0) {
+            else if (i%100==0) {
                 tracer_ligneX(i, distanceY);
                 sprintf(valeur, "%d", i);
                 if (i != 0) {
-                    outtextxy(i - distanceX * 0.05, 0 - distanceY * 0.06, valeur);
+                    outtextxy(i-distanceX * 0.05, 0 - distanceY * 0.06, valeur);
                 }
             }
             i++;
         }
-        else { i = B + 1; }
-
+        else {i = B + 1;}
+        
     }
     while (j <= D) {
         if (distanceY < 1000) {
             if (distanceY < 100) {
                 if (distanceY < 10) {
-                    tracer_ligneY(j, distanceX);
+                    tracer_ligneY(j, distanceY);
+                    sprintf(valeur, "%d", j);
+                    if (j != 0) {
+                        outtextxy(0 - distanceX * 0.04, j, valeur);
+                    }
+                }
+                else if (j % 10 == 0) {
+                    tracer_ligneY(j, distanceY);
                     sprintf(valeur, "%d", j);
                     if (j != 0) {
                         outtextxy(0 - distanceX * 0.06, j, valeur);
                     }
                 }
-                else if (j % 10 == 0) {
-                    tracer_ligneY(j, distanceX);
-                    sprintf(valeur, "%d", j);
-                    if (j != 0) {
-                        outtextxy(0 - distanceX * 0.08, j, valeur);
-                    }
-                }
             }
             else if (j % 100 == 0) {
-                tracer_ligneY(j, distanceX);
+                tracer_ligneY(j, distanceY);
                 sprintf(valeur, "%d", j);
                 if (j != 0) {
-                    outtextxy(0 - distanceX * 0.1, j, valeur);
+                    outtextxy(0 - distanceX * 0.08, j, valeur); 
                 }
             }
             j++;
@@ -279,21 +312,35 @@ static void GlutDraw(void) {
         else { j = D + 1; }
 
     }
-    outtextxy(0 - distanceX * 0.03, 0 - distanceY * 0.03, "0");
+    outtextxy(0-distanceX*0.03, 0-distanceY*0.03, "0"); 
 
     //Trace des axes Ox & Oy
     setcolor(0, 0, 0);
     line(A, 0, B, 0); //axe Ox
     line(0, C, 0, D); //axe Oy
 
-    //Trace curseur    
-    t_curs = 40;
-    setcolor(0.4F, 0.4F, 0.4F);
-    line(X_curseur - abs(C - D) / t_curs, Y_curseur, X_curseur + abs(C - D) / t_curs, Y_curseur);    //curseur axe Ox
-    line(X_curseur, Y_curseur - abs(C - D) / t_curs, X_curseur, Y_curseur + abs(C - D) / t_curs);    //curseur axe 0y
+    //Trace curseur 1    
+    if (toggle == 0) {
+        t_curs = 20;
+        setcolor(0.4F, 0.4F, 0.4F);
+        line(X_curseur - abs(C - D) / t_curs, Y_curseur, X_curseur + abs(C - D) / t_curs, Y_curseur);    //curseur axe Ox
+        line(X_curseur, Y_curseur - abs(C - D) / t_curs, X_curseur, Y_curseur + abs(C - D) / t_curs);    //curseur axe 0y
+        circle(X_curseur, Y_curseur, abs(C - D) / t_curs, 1, 1000, 6);
+    }
 
+   //Trace curseur 2    
+    if (toggle == 1) {
+        t_curs = 20;
+        setcolor(0.4F, 0.4F, 0.4F);
+        line(X_curseur - abs(C - D) / t_curs * 0.1, Y_curseur, X_curseur + abs(C - D) / t_curs * 0.1, Y_curseur);    //curseur axe Ox  
+        line(X_curseur, Y_curseur - abs(C - D) / t_curs * 0.1, X_curseur, Y_curseur + abs(C - D) / t_curs * 0.1);    //curseur axe 0y 
+        circle(X_curseur, Y_curseur, abs(C - D) / t_curs, 1, 16, 2);
+        circle(X_curseur, Y_curseur, (abs(C - D) / t_curs / 4 * 3), 1, 24, 2);
+    }
+    
     //dessin du graph
     if (AppliDraw && Abscisse && Ordonnee) (*AppliDraw)(Abscisse, Ordonnee);
+    
     End2DDisplay();
     glutSwapBuffers();
 }

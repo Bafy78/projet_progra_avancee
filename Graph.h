@@ -1,7 +1,7 @@
-ï»¿/**
+/**
 * @file Graph.h
 *
-* @brief presente quelques outils d'affichage nÃ©cessaires dans le cadre de ce
+* @brief presente quelques outils d'affichage nécessaires dans le cadre de ce
 * projet.
 * Il contient la declaration des procedures disponibles pour ouvrir une fenetre
 * et y dessiner des figures. Les coordonnees des points dans la fenetre sont
@@ -22,12 +22,14 @@ float get_C();
 float get_D();
 float get_X0();
 float get_Y0();
+float get_toggle(); 
+void set_toggle(int t);
 
 void set_TranslatX(float x);
 void set_TranslatY(float y);
 void set_Zoom(float z);
 
-//Fonctions utiles aux calculs de coordonnÃ©es
+//Fonctions utiles aux calculs de coordonnées
 float Calcul_milieu(float Coord1, float Coord2);
 float abs(float x);
 
@@ -42,7 +44,7 @@ float abs(float x);
 * @param w la largeur de la fenetre
 * @param h la hauteur de la fenetre
 * @param Draw fonction qui affiche le graphique dans la fenetre
-* @param Key fonction appelÃ©e lors de l'appui sur une touche c du clavier,
+* @param Key fonction appelée lors de l'appui sur une touche c du clavier,
 *	 c designant le code ascii de la touche
 *
 */
@@ -56,9 +58,9 @@ void InitGraph(int ac, char* av[], const char* WinName,
 * (x1,y1)
 *
 * @param x0 abscisse du 1er point
-* @param y0 ordonnÃ©e du 1er point
+* @param y0 ordonnée du 1er point
 * @param x0 abscisse du 2eme point
-* @param y0 ordonnÃ©e du 2eme point
+* @param y0 ordonnée du 2eme point
 *
 */
 void line(const float x0, const float y0, const float x1, const float y1);
@@ -67,7 +69,7 @@ void line(const float x0, const float y0, const float x1, const float y1);
 /**
 * setcolor
 *
-* Cette procedure permet de definir la couleur utilisÃ©e pour tracer les lignes.
+* Cette procedure permet de definir la couleur utilisée pour tracer les lignes.
 * La couleur par les valeurs des composantes rouge, vert et bleue.
 *
 * @param r composante rouge
@@ -81,10 +83,10 @@ void setcolor(const float r, const float v, const float b);
 * beginlines
 *
 * Cette procedure permet de commencer le trace d'une ligne brisee composee
-* de n segments de droite dÃ©finis par (n+1) points.
+* de n segments de droite définis par (n+1) points.
 *
 * @param x0 l'abscisse du premier point de la ligne brisee
-* @param y0 l'ordonnÃ©e du premier point de la ligne brisee
+* @param y0 l'ordonnée du premier point de la ligne brisee
 *
 */
 void beginlines(const float x0, const float y0);
@@ -113,7 +115,7 @@ void finishlines(void);
 /**
 * bar
 *
-* Cette procÃ©dure permet de tracer un rectangle defini par son coin superieur
+* Cette procédure permet de tracer un rectangle defini par son coin superieur
 * gauche et son coin inferieur droit.
 *
 * @param x0 abscisse du coin superieur gauche du rectangle
