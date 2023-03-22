@@ -2,7 +2,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "analyseur_lexical.h"
-#include "jeton.h"
+
 
 void analyse_lexicale(typejeton tab[], int *erreur_pg, char c[]){
     char ch3[3];
