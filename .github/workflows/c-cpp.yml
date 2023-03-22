@@ -33,7 +33,5 @@ jobs:
       run: gcc ./main_test_afficheur.c ./afficheur.c -o test_afficheur.exe
     - name: test afficheur
       run: ./test_afficheur.exe
-    - name: compile main.c
-      run: gcc ./main.c -o main.exe
-    - name: run main.c
-      run: ./main.exe
+    - name: compile main.cpp
+      run: g++ ./main.cpp -o main.exe
