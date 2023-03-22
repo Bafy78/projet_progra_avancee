@@ -109,7 +109,7 @@ Arbre generation_arbre1(){
 void generation_tab2(typejeton T[]){
     //tableau au genere:"|-5|*x+cos(3/x)"
     int i=0;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=FONCTION;
     T[i].valeur.fonction=VAL_NEG;
@@ -117,7 +117,7 @@ void generation_tab2(typejeton T[]){
     T[i].lexem=REEL;
     T[i].valeur.reel=5;
     i++;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=OPERATEUR;
     T[i].valeur.operateur=FOIS;
@@ -228,19 +228,19 @@ void generation_tab3(typejeton T[]){
     T[i].lexem=OPERATEUR;
     T[i].valeur.operateur=FOIS;
     i++;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=REEL;
     T[i].valeur.reel=5;
     i++;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=PAR_FERM;
     i++;
     T[i].lexem=OPERATEUR;
     T[i].valeur.operateur=PLUS;
     i++;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=FONCTION;
     T[i].valeur.fonction=VAL_NEG;
@@ -260,7 +260,7 @@ void generation_tab3(typejeton T[]){
     i++;
     T[i].lexem=PAR_FERM;
     i++;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=FIN;
 }
@@ -380,7 +380,7 @@ Arbre generation_arbre4(){
 void generation_tab5(typejeton T[]){
     //tableau au genere:"|-5|*x+cos(3/x"
     int i=0;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=FONCTION;
     T[i].valeur.fonction=VAL_NEG;
@@ -388,7 +388,7 @@ void generation_tab5(typejeton T[]){
     T[i].lexem=REEL;
     T[i].valeur.reel=5;
     i++;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=OPERATEUR;
     T[i].valeur.operateur=FOIS;
@@ -416,7 +416,7 @@ void generation_tab5(typejeton T[]){
 void generation_tab6(typejeton T[]){
     //tableau au genere:"|-5|*x+cos3/x)
     int i=0;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=FONCTION;
     T[i].valeur.fonction=VAL_NEG;
@@ -424,7 +424,7 @@ void generation_tab6(typejeton T[]){
     T[i].lexem=REEL;
     T[i].valeur.reel=5;
     i++;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=OPERATEUR;
     T[i].valeur.operateur=FOIS;
@@ -452,7 +452,7 @@ void generation_tab6(typejeton T[]){
 void generation_tab7(typejeton T[]){
     //tableau au genere:"|-5*x+cos(3/x)"
     int i=0;
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     T[i].lexem=FONCTION;
     T[i].valeur.fonction=VAL_NEG;
@@ -655,7 +655,7 @@ void generation_tab_t_u(typejeton T[]){
     i++;
     */
     /*exemple de case barre verticale(de valeur absolue)
-    T[i].lexem=BAR;
+    T[i].lexem=ABSOLU;
     i++;
     */
     /*exemple de case fin
@@ -746,7 +746,7 @@ int main(){
 
     //test 3 :"(-2*|5|)+|-tan(3*x)|" ce qui teste les valeurs abolues, les val neg, l'addition, les reels, les variables,le produit et les fonctions
     printf("\033[0;32m");//passer le print en Vert
-    printf("===================================\ndebut test 3: '(-2*|5|)+|-tan(3*x)'\n===================================\n");
+    printf("===================================\ndebut test 3: '(-2*|5|)+|-tan(3*x)|'\n===================================\n");
     printf("\033[0;0m");
     free(A);
     free(B);
