@@ -1,4 +1,3 @@
-
 #ifndef analyseur_syntaxique_h
 #define analyseur_syntaxique_h
 
