@@ -306,9 +306,9 @@ extern void exit(int);
 
 /* Bitmap font constants (use these in GLUT program). */
 #define GLUT_BITMAP_9_BY_15		((void*)2)
-#define GLUT_BITMAP_8_BY_13		((void*)5)
+#define GLUT_BITMAP_8_BY_13		((void*)3)
 #define GLUT_BITMAP_TIMES_ROMAN_10	((void*)4)
-#define GLUT_BITMAP_TIMES_ROMAN_24	((void*)3)
+#define GLUT_BITMAP_TIMES_ROMAN_24	((void*)5)
 #if (GLUT_API_VERSION >= 3)
 #define GLUT_BITMAP_HELVETICA_10	((void*)6)
 #define GLUT_BITMAP_HELVETICA_12	((void*)7)
