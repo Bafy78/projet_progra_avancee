@@ -5,8 +5,9 @@
 
 void Copy_Tab (typejeton* tab2, typejeton* tab1, int debut, int end){
 	/*
-		génere une copie du tableau envoyé en 2ème argument entre la valeur du 3ème argument et celle du 4ème
-		et si besoin rajoute le lexem fin à la copie renvoyé dans le 1er argument	
+		Input : tableau de jeton (de type typejeton) vide, tableau de jeton (detypejeton), un entier debut(du tableau), un entier fin ( du tableau)
+		Output: tableau de jeton ( de type typejeton) copié
+		Génère une copie du tableau envoyé en deuxième argument entre la valeur du troisième argument et celle du quatrième et si besoin ajoute le lexem fin à la copie renvoyé dans le premier argument
 	*/
 	int k=0;
     for (int i=debut; (i<=end)&&(tab1[i].lexem!=FIN);i++ ){
@@ -19,7 +20,9 @@ void Copy_Tab (typejeton* tab2, typejeton* tab1, int debut, int end){
 
 Arbre creer_noeud(typejeton T,Arbre fg,Arbre fd){
 	/*
-		génère un noeud et y ajoute son fils droit, gauche et son jeton passés en arguments
+		Input : le jeton à envoyer dans le noeud (de type typejeton), Fils Gauche (de type Arbre), Fils Droit (de type Arbre)
+		Output : l’arbre généré (de type Arbre)
+		Génère un noeud et y ajoute son fils droit, gauche et son jeton passés en arguments.
 	*/
 	Arbre New=NULL;
 	New=(Arbre)malloc(sizeof(Node));
@@ -30,13 +33,25 @@ Arbre creer_noeud(typejeton T,Arbre fg,Arbre fd){
 }
 
 Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
+	/*
+		Input : tableau de jetons (de type typejeton), erreur_pg, un int*
+		Output : Arbre binaire (de type Arbre) représentant le tableau
+		Cette fonction récupère un input le tableau de ressort l’arbre binaire le représentant en considérant la priorité mathématique ainsi que les codes des erreurs, si des erreurs ont étés détectés dans *erreur_pg sous forme de int.
+		
+		codes d'erreurs associés à l'analyseur syntaxique:
+		200 parenthèse fermée manquante
+		201 parenthèse ouverte manquante
+		202 lexem non reconnu
+		203 barre de valeur absolue manquante
+		204 tableau vide
+	*/
 	//gestion des erreurs
 	// si le tableau recu par la fonction est vide
 	if(Tab[0].lexem==FIN){
 		*erreur_pg=204; //tableau vide
 		return NULL;
 	}
-	//verification des parenthèses, barres de valeurs absolues, et nombre de fonction
+	//verification des parennthèses, barres de valeurs absolues, et nombre de fonction
 	int i=0;
 	int nb_barres=0;
 	int nb_parenthese=0;
@@ -385,6 +400,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			i++;
 		}
 		
+
 		//methode: detection des reels, des variables et creation des noeuds et si le lexem est inconnu, mise en place de l'erreur 202
 		switch (Tab[0].lexem){
 		case REEL:
@@ -402,11 +418,3 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 		return NULL;
 	}
 }
-/*
-	codes d'erreurs associés à l'analyseur syntaxique:
-	200 parenthèse fermée manquante
-	201 parenthèse ouverte manquante
-	202 lexem non reconnu
-	203 barre de valeur absolue manquante
-	204 tableau vide
-*/

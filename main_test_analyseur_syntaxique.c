@@ -4,9 +4,8 @@
 #include "jeton.h"
 #include "analyseur_syntaxique.h"
 
-
 void generation_tab1(typejeton T[]){
-    //tableau au genere:"(-5)*x+cos(3/x)"
+    //tableau au genere:"(-5)*x-cos(3/x)"
     int i=0;
     T[i].lexem=PAR_OUV;
     i++;
@@ -24,7 +23,7 @@ void generation_tab1(typejeton T[]){
     T[i].lexem=VARIABLE;
     i++;
     T[i].lexem=OPERATEUR;
-    T[i].valeur.operateur=PLUS;
+    T[i].valeur.operateur=MOINS;
     i++;
     T[i].lexem=FONCTION;
     T[i].valeur.fonction=COS;
@@ -45,9 +44,9 @@ void generation_tab1(typejeton T[]){
 }
 
 Arbre generation_arbre1(){
-    typejeton jetonplus;
-    jetonplus.lexem=OPERATEUR;
-    jetonplus.valeur.operateur=PLUS;
+    typejeton jetonmoins;
+    jetonmoins.lexem=OPERATEUR;
+    jetonmoins.valeur.operateur=MOINS;
 
     typejeton jetonfois;
     jetonfois.lexem=OPERATEUR;
@@ -77,7 +76,7 @@ Arbre generation_arbre1(){
     jetoncos.valeur.fonction=COS;
 
     Arbre A= creer_noeud(
-        jetonplus,
+        jetonmoins,
         creer_noeud(
             jetonfois,
             creer_noeud(
@@ -514,7 +513,7 @@ void generation_tab9(typejeton T[]){
 int test_arbre(Arbre A, Arbre B){
     int tmp=0;
     printf("\033[1;33m");
-    printf("%d=%d? ",A->jeton.lexem,B->jeton.lexem);
+    printf("test lexem:%d=%d? ",A->jeton.lexem,B->jeton.lexem);
     printf("\033[0;0m");
     if ((A->jeton.lexem)==(B->jeton.lexem)){
         switch (B->jeton.lexem)
@@ -583,7 +582,92 @@ int test_arbre(Arbre A, Arbre B){
 }
 
 
+void printarbre(Arbre A){
+    switch (A->jeton.lexem){
+    case FONCTION:
+        printf("\033[1;34m");
+        printf("fonction,valeur= %d\n",A->jeton.valeur.fonction);
+        printf("\033[0;0m");
+        break;
+    case OPERATEUR:
+        printf("\033[1;34m");
+        printf("operateur,valeur= %d\n",A->jeton.valeur.operateur);
+        printf("\033[0;0m");
+        break;
+    case VARIABLE:
+        printf("\033[1;34m");
+        printf("variable\n");
+        printf("\033[0;0m");
+        break;
+    case REEL:
+        printf("\033[1;34m");
+        printf("reel valeur= %f\n",A->jeton.valeur.reel);
+        printf("\033[0;0m");
+        break;        
+    default:
+        printf("\033[1;34m");
+        printf("lexem inconnu");
+        printf("\033[0;0m");
+        break;
+    }    
+    if(A->fd!=NULL){
+        printf("\033[1;34m");
+        printf("debut verif fd\n");
+        printf("\033[0;0m");
+        printarbre(A->fd);
+    }
+    if(A->fg!=NULL){
+        printf("\033[1;34m");
+        printf("debut verif fg\n");
+        printf("\033[0;0m");
+        printarbre(A->fg);
+    }
+}
+
+void generation_tab_t_u(typejeton T[]){
+    //tableau au genere:""
+    int i=0;
+    /*exemple de case fonction
+    T[i].lexem=FONCTION;
+    T[i].valeur.fonction=;
+    i++;
+    */
+    /*exemple de case operateur
+    T[i].lexem=OPERATEUR;
+    T[i].valeur.operateur=;
+    i++;
+    */
+    /*exemple de case reel
+    T[i].lexem=REEL;
+    T[i].valeur.reel=;
+    i++;
+    */
+    /*exemple de case variable
+    T[i].lexem=VARIABLE;
+    i++;
+    */
+    /*exemple de case parenthèse ouverte
+    T[i].lexem=PAR_OUV;
+    i++;
+    */
+    /*exemple de case parenthèse fermée
+    T[i].lexem=PAR_FERM;
+    i++;
+    */
+    /*exemple de case barre verticale(de valeur absolue)
+    T[i].lexem=BAR;
+    i++;
+    */
+    /*exemple de case fin
+    T[i].lexem=FIN;
+    */
+}
+
 int main(){
+    //test 1 :"(-5)*x-cos(3/x)" ce qui teste les parenthèses , les val neg, la soustraction, les reels, les variables,le produit et les fonctions
+    printf("\033[0;32m");//passer le print en Vert
+    printf("===============================\ndebut test 1: '(-5)*x-cos(3/x)'\n===============================\n");
+    printf("\033[0;0m");
     int *erreur_pg;
     int erreur=0;
     erreur_pg=&erreur;
@@ -616,10 +700,14 @@ int main(){
         return -1;
     }
     printf("\033[0;32m");//passer le print en Vert
-    printf("==========================\ntest 1 passe\n==========================\n");
+    printf("===========================\ntest 1 passe\n===========================\n");
     printf("\033[0;0m");
     printf("\n");
 
+    //test 2 :"|-5|*x+cos(3/x)" ce qui teste les valeurs abolues, les val neg, l'addition, les reels, les variables,le produit et les fonctions
+    printf("\033[0;32m");//passer le print en Vert
+    printf("===============================\ndebut test 2: '|-5|*x+cos(3/x)'\n===============================\n");
+    printf("\033[0;0m");
     free(A);
     free(B);
     A=NULL;
@@ -656,6 +744,10 @@ int main(){
     printf("\033[0;0m");
     printf("\n");
 
+    //test 3 :"(-2*|5|)+|-tan(3*x)|" ce qui teste les valeurs abolues, les val neg, l'addition, les reels, les variables,le produit et les fonctions
+    printf("\033[0;32m");//passer le print en Vert
+    printf("===================================\ndebut test 3: '(-2*|5|)+|-tan(3*x)'\n===================================\n");
+    printf("\033[0;0m");
     free(A);
     free(B);
     A=NULL;
@@ -692,6 +784,10 @@ int main(){
     printf("\033[0;0m");
     printf("\n");
 
+    //test 4 :"x^2" ce qui teste les reels, les variables et la puissance
+    printf("\033[0;32m");//passer le print en Vert
+    printf("==========================\ndebut test 4: 'x^2'\n==========================\n");
+    printf("\033[0;0m");
     free(A);
     free(B);
     A=NULL;
@@ -728,7 +824,10 @@ int main(){
     printf("\033[0;0m");
     printf("\n");
 
-    //test erreur 200
+    //test 5: "|-5|*x+cos(3/x": test de l'erreur 200 (parenthèse fermée manquante)
+    printf("\033[0;32m");//passer le print en Vert
+    printf("==========================\ndebut test 5: erreur 200\n==========================\n");
+    printf("\033[0;0m");
     free(A);
     free(B);
     A=NULL;
@@ -751,7 +850,10 @@ int main(){
     printf("\033[0;0m");
     printf("\n");
 
-    //test erreur 201
+    //test 6: "|-5|*x+cos3/x)": test de l'erreur 201 (parenthèse ouverte manquante)
+    printf("\033[0;32m");//passer le print en Vert
+    printf("==========================\ndebut test 6: erreur 201\n==========================\n");
+    printf("\033[0;0m");
     free(A);
     A=NULL;
     erreur=0;
@@ -772,7 +874,10 @@ int main(){
     printf("\033[0;0m");
     printf("\n");
 
-    //test erreur 203
+    //test 7: "|-5*x+cos(3/x)": test de l'erreur 203 (barre de valeur absolue manquante)
+    printf("\033[0;32m");//passer le print en Vert
+    printf("==========================\ndebut test 7: erreur 203\n==========================\n");
+    printf("\033[0;0m");
     free(A);
     A=NULL;
     erreur=0;
@@ -793,7 +898,10 @@ int main(){
     printf("\033[0;0m");
     printf("\n");
 
-    //test erreur 202
+    //test 8: "ERREUR": test de l'erreur 202 (lexem non reconnu)
+    printf("\033[0;32m");//passer le print en Vert
+    printf("==========================\ndebut test 8: erreur 202\n==========================\n");
+    printf("\033[0;0m");
     free(A);
     A=NULL;
     erreur=0;
@@ -814,7 +922,10 @@ int main(){
     printf("\033[0;0m");
     printf("\n");
 
-    //test erreur 204
+    //test 9: "cos(x+)": test de l'erreur 204 (tableau vide)
+    printf("\033[0;32m");//passer le print en Vert
+    printf("==========================\ndebut test 9: erreur 204\n==========================\n");
+    printf("\033[0;0m");
     free(A);
     A=NULL;
     erreur=0;
@@ -834,6 +945,28 @@ int main(){
     printf("==========================\ntest 9 passe\n==========================\n");
     printf("\033[0;0m");
     printf("\n");
+
+    //exemple test avec print de l'arbre
+    /*free(A);
+    A=NULL;
+    erreur=0;
+    //generation du tableau
+    printf("generation du tableau test unitaire\n");
+    generation_tab_t_u(T);
+    //passage de la fonction
+    printf("envoi dans l'analyseur syntaxique test unitaire\n");
+    A=analyse_syntaxique(T,erreur_pg);
+    //print arbre
+    printarbre(A);
+    //test d'erreurs
+    printf("recuperation des erreur prg test unitaires\n");
+    if(*erreur_pg!=000){
+        printf("erreur=%d",*erreur_pg);
+        printf("codes d'erreurs associés à l'analyseur syntaxique:\n200 parenthèse fermée manquante\n201 parenthèse ouverte manquante\n202 lexem non reconnu\n203 barre de valeur absolue manquante\n204 tableau vide");
+        return -1;
+    }
+    printf("\n");
+    */
 
     printf("\033[1;32m");//passer le print en Vert
     printf("==========================\ntous les tests sont passes\n==========================\n");
