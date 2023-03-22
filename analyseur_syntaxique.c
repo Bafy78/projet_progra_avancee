@@ -62,7 +62,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 		if(Tab[i].lexem==PAR_FERM){
 			nb_parenthese--;
 		}
-		if(Tab[i].lexem==BAR){
+		if(Tab[i].lexem==ABSOLU){
 			nb_barres++;
 		}
 		i++;
@@ -94,7 +94,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			if(Tab[i].lexem==PAR_FERM){
 				nb_parenthese--;
 			}
-			if(Tab[i].lexem==BAR){
+			if(Tab[i].lexem==ABSOLU){
 			    nb_barres++;
 			}
 			if(Tab[i].lexem==OPERATEUR&&nb_parenthese==0&&(nb_barres%2)==0){
@@ -136,7 +136,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			if(Tab[i].lexem==PAR_FERM){
 				nb_parenthese--;
 			}
-			if(Tab[i].lexem==BAR){
+			if(Tab[i].lexem==ABSOLU){
 			        nb_barres++;
 			}
 			if(Tab[i].lexem==OPERATEUR&&nb_parenthese==0&&(nb_barres%2)==0){
@@ -178,7 +178,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			if(Tab[i].lexem==PAR_FERM){
 				nb_parenthese--;
 			}
-			if(Tab[i].lexem==BAR){
+			if(Tab[i].lexem==ABSOLU){
 			        nb_barres++;
 			}
 			if(Tab[i].lexem==OPERATEUR&&nb_parenthese==0&&(nb_barres%2)==0){
@@ -220,7 +220,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			if(Tab[i].lexem==PAR_FERM){
 				nb_parenthese--;
 			}
-			if(Tab[i].lexem==BAR){
+			if(Tab[i].lexem==ABSOLU){
 				nb_barres++;
 			}
 			if(Tab[i].lexem==FONCTION&&Tab[i].valeur.fonction==VAL_NEG&&nb_parenthese==0&&(nb_barres%2)==0){
@@ -258,7 +258,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			if(Tab[i].lexem==PAR_FERM){
 				nb_parenthese--;
 			}
-			if(Tab[i].lexem==BAR&&nb_parenthese==0){
+			if(Tab[i].lexem==ABSOLU&&nb_parenthese==0){
 				n=i;
 				/*
 					methode: detection de la partie entre barres,
@@ -277,7 +277,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 					if(Tab[n].lexem==PAR_FERM){
 						nb_parenthese--;
 					}
-					if(Tab[n].lexem==BAR&&nb_parenthese==0){
+					if(Tab[n].lexem==ABSOLU&&nb_parenthese==0){
 						nb_barres--;
 					}
 					if(Tab[n].lexem==FIN&&nb_barres!=0){
@@ -315,7 +315,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			if(Tab[i].lexem==PAR_FERM){
 				nb_parenthese--;
 			}
-			if(Tab[i].lexem==BAR){
+			if(Tab[i].lexem==ABSOLU){
 				nb_barres++;
 			}
 			if(Tab[i].lexem==FONCTION&&Tab[i].valeur.fonction!=VAL_NEG&&nb_parenthese==0&&(nb_barres%2)==0){
@@ -368,7 +368,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 		nb_parenthese=0;
 		nb_barres=0;
 		while(Tab[i].lexem!=FIN&&(n==-1)){
-			if(Tab[i].lexem==BAR){
+			if(Tab[i].lexem==ABSOLU){
 				nb_barres++;
 			}if(Tab[i].lexem==PAR_OUV&&(nb_barres%2)==0){
 				n=i;
