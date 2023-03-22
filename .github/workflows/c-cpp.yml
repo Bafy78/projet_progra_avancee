@@ -32,4 +32,4 @@ jobs:
     - name: test evaluateur
       run: ./test_evaluateur.exe
     - name: compile main.cpp
-      run: g++ ./main.c -o main.exe
+      run: g++ ./main.cpp -o main.exe
