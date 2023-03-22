@@ -15,7 +15,6 @@ void categorisation_erreur(int* erreur_pg) {
     switch (*erreur_pg) {
     case 101: printf("Erreur 101 : fonction inconnue\n"); break;
     case 102: printf("Erreur 102 : caractère inconnu\n"); break;
-    case 100: printf("Erreur 100 : Caractère inconnu détecté\n"); break;
     case 200: printf("Erreur 200 : Parenthèse fermée manquante\n"); break;
     case 201: printf("Erreur 201 : Parenthèse ouverte manquante\n"); break;
     case 202: printf("Erreur 202 : Lexème non reconnu\n"); break;
@@ -100,7 +99,7 @@ void Draw(float x[], float y[]) {
 
     //tracé de la fonction
     setcolor(0.0F, 0.0F, 1.0F);
-    for (int i = 0; i < 99; i++) {
+    for (int i = 0; i < 99998; i++) {
         line(x[i], y[i], x[i + 1], y[i + 1]);
     }
 
@@ -146,9 +145,10 @@ int main(int ac, char* av[])
     float borne_inf;
     float borne_sup;
     float pas;
-    float Tableau_a_afficher_fonction[100];
-    float Tableau_a_afficher_variable[100];
+    float Tableau_a_afficher_fonction[100000];
+    float Tableau_a_afficher_variable[100000];
     Arbre Arbre_a_evaluer;
+    //on initialise l'erreur qui sera un pointeur, elle pourra donc etre transmise hors des fonctions sans problème
     int erreur = 0;
     int* erreur_pg = &erreur;
     char c[101];
@@ -163,10 +163,8 @@ int main(int ac, char* av[])
         scanf("%f", &borne_inf);
         printf("Donnez b, la borne superieure d'echantillonage de la fonction\n");
         scanf("%f", &borne_sup);
-        pas = (borne_sup - borne_inf) / 100;
+        pas = (borne_sup - borne_inf) / 100000;
         printf("borne inf:%f\nborne sup:%f\npas:%f\n", borne_inf, borne_sup, pas);
-        //on initialise l'erreur qui sera un pointeur, elle pourra donc etre transmise hors des fonctions sans problème
-        //typejeton Tableau[] = { jetoncinq,jetonfois,jetonvar,jetonfin }; // a remplcer avec anaylseur lexical
     }
     if (*erreur_pg == 0) {
         Arbre_a_evaluer = analyse_syntaxique(*tab, erreur_pg);

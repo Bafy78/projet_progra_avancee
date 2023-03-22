@@ -1,7 +1,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "jeton.h"
 #include "evaluateur.h"
 
 //la fonction prend en entrée: un arbre A  qui est la fonction,
