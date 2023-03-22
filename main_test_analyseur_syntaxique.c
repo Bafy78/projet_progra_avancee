@@ -4,6 +4,7 @@
 #include "jeton.h"
 #include "analyseur_syntaxique.h"
 
+
 void generation_tab1(typejeton T[]){
     //tableau au genere:"(-5)*x+cos(3/x)"
     int i=0;
