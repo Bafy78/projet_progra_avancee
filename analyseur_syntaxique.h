@@ -5,8 +5,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-Arbre analyse_syntaxique( typejeton Tab[],int* erreur_pg);
+Arbre analyse_syntaxique(typejeton Tab[], int* erreur_pg);
 
-Arbre creer_noeud(typejeton T,Arbre fg,Arbre fd);
+Arbre creer_noeud(typejeton T, Arbre fg, Arbre fd);
 
 #endif

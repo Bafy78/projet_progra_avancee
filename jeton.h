@@ -1,7 +1,7 @@
 #ifndef jeton_h
 #define jeton_h
 
-#define length_Tab 100
+#define length_Tab 1000
 
 //énumération des différents types de lexems existants
 typedef enum{

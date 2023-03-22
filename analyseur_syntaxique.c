@@ -19,7 +19,7 @@ void Copy_Tab (typejeton* tab2, typejeton* tab1, int debut, int end){
 
 Arbre creer_noeud(typejeton T,Arbre fg,Arbre fd){
 	/*
-		génère un noeud et y ajoute sonb fils droit, gauche et son jeton passés en arguments
+		génère un noeud et y ajoute son fils droit, gauche et son jeton passés en arguments
 	*/
 	Arbre New=NULL;
 	New=(Arbre)malloc(sizeof(Node));
@@ -36,7 +36,7 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 		*erreur_pg=204; //tableau vide
 		return NULL;
 	}
-	//verification des parennthèses, barres de valeurs absolues, et nombre de fonction
+	//verification des parenthèses, barres de valeurs absolues, et nombre de fonction
 	int i=0;
 	int nb_barres=0;
 	int nb_parenthese=0;
@@ -385,7 +385,6 @@ Arbre analyse_syntaxique(typejeton Tab[],int* erreur_pg){
 			i++;
 		}
 		
-
 		//methode: detection des reels, des variables et creation des noeuds et si le lexem est inconnu, mise en place de l'erreur 202
 		switch (Tab[0].lexem){
 		case REEL:
