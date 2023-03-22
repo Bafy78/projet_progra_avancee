@@ -195,7 +195,6 @@ typejeton* analyseur(const char* expression,int *erreur_pg)
             printf("FONCTION: %s\n", fonction_names[token.valeur.fonction]);
             break;
         case ERREUR:
-            
             break;
         case FIN:
             printf("FIN\n");
